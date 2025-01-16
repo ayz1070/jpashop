@@ -17,7 +17,6 @@ public class MemberService {
     @Autowired
     private final MemberRepository memberRepository;
 
-
     // 회원가입
     public Long join(Member member) {
         validateDuplicatedMember(member);
