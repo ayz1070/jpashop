@@ -37,6 +37,8 @@ public class Order {
     private LocalDateTime orderDate; //주문시간 @Enumerated(EnumType.STRING)
     private OrderStatus status; //주문상태 [ORDER, CANCEL]
 
+
+
     //==연관관계 메서드==//
     public void setMember(Member member) {
         this.member = member;
