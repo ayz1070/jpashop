@@ -1,5 +1,5 @@
 package com.example.jpashop.domain;
 
 public enum DeliveryStatus {
-    READY, COMP
+    READY, DROPOFF, SHIPPING, DELIVERED
 }

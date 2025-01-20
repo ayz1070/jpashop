@@ -50,7 +50,7 @@ public class Order {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
-        delivery.setOrder(this);
+        //delivery.setOrder(this);
     }
 
     //==생성 메서드==//
@@ -71,7 +71,7 @@ public class Order {
      * 주문 취소
      */
     public void cancel() {
-        if (delivery.getStatus() == DeliveryStatus.COMP) {
+        if (delivery.getStatus() == 6) {
             throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
         }
         this.setStatus(OrderStatus.CANCEL);
