@@ -1,4 +1,4 @@
-package com.example.jpashop.repository;
+package com.example.jpashop.repository.order.simplequery;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;

@@ -6,8 +6,8 @@ import com.example.jpashop.domain.Order;
 import com.example.jpashop.domain.OrderStatus;
 import com.example.jpashop.repository.OrderRepository;
 import com.example.jpashop.repository.OrderSearch;
-import com.example.jpashop.repository.OrderSimpleQueryDto;
-import com.example.jpashop.repository.OrderSimpleQueryRepository;
+import com.example.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
+import com.example.jpashop.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
