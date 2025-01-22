@@ -11,7 +11,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(23)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
@@ -31,11 +31,22 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5-jakarta'
 
+    // Jakarta Validation 및 Persistence
     implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
 
+    // Lombok
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // H2 Database
+    runtimeOnly 'com.h2database:h2'
+
+    // QueryDSL 의존성
+    implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+
+    // 테스트 의존성
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
@@ -44,6 +55,40 @@ hibernate {
     enhancement {
         enableAssociationManagement = true
     }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += "build/generated/sources/annotationProcessor/java/main"
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorPath = configurations.compileClasspath + configurations.annotationProcessor
+}
+
+// QueryDSL 소스 디렉토리 초기화
+task initQuerydslSourcesDir {
+    doLast {
+        file("build/generated/sources/annotationProcessor/java/main").mkdirs()
+    }
+}
+
+// QueryDSL 컴파일 태스크
+task compileQuerydsl(type: JavaCompile) {
+    source = sourceSets.main.java
+    classpath = configurations.compileClasspath + configurations.annotationProcessor
+    destinationDirectory = file("build/generated/sources/annotationProcessor/java/main")
+    options.annotationProcessorPath = configurations.compileClasspath + configurations.annotationProcessor
+    options.compilerArgs += "-proc:only"
+    dependsOn initQuerydslSourcesDir
+}
+
+// Java 컴파일 의존성 추가
+tasks.named('compileJava') {
+    dependsOn compileQuerydsl
 }
 
 tasks.named('test') {
