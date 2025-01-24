@@ -69,10 +69,10 @@ public class OrderApiController {
         return result;
     }
 
-    @GetMapping("/api/v4/orders")
-    public List<OrderQueryDto> orderV4(){
-        return orderQueryRepository.findOrderQueryDtos();
-    }
+//    @GetMapping("/api/v4/orders")
+//    public List<OrderQueryDto> orderV4(){
+//        //return orderQueryRepository.findOrderQueryDtos();
+//    }
 
     @GetMapping("/api/v5/orders")
     public List<OrderQueryDto> orderV5(){
