@@ -17,7 +17,7 @@ public class MemberService {
     @Autowired
     private final MemberRepository memberRepository;
 
-    // 회원가입
+    // 회원가
     public Long join(Member member) {
         validateDuplicatedMember(member);
         memberRepository.save(member);
