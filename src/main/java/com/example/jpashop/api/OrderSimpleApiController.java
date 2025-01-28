@@ -32,15 +32,14 @@ public class OrderSimpleApiController {
 
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1() {
-        List<Order> all = orderRepository.findAllByString(new OrderSearch());
-        return all;
+        return orderRepository.findAllByString(new OrderSearch());
     }
 
     @GetMapping("/api/v2/simple-orders")
     public List<SimpleOrderDto> ordersV2() {
         List<Order> orders = orderRepository.findAllByString(new OrderSearch());
         List<SimpleOrderDto> result = orders.stream()
-                .map(o -> new SimpleOrderDto(o))
+                .map(SimpleOrderDto::new)
                 .collect(toList());
         return result;
     }
@@ -49,7 +48,7 @@ public class OrderSimpleApiController {
     public List<SimpleOrderDto> ordersV3() {
         List<Order> orders = orderRepository.findAllWithMemberDelivery();
         List<SimpleOrderDto> result = orders.stream()
-                .map(o -> new SimpleOrderDto(o))
+                .map(SimpleOrderDto::new)
                 .collect(toList());
         return result;
     }
